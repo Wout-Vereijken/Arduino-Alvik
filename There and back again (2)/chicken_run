@@ -1,0 +1,30 @@
+from arduino import *
+from arduino_alvik import ArduinoAlvik
+
+alvik = ArduinoAlvik()
+
+# lenght 297 mm (A4)
+# 1 rotation = 106.8
+# 297 / 106.8 = 2,78
+# 10 rpm 
+# 60 / 10 = 6
+# 6 x 2,78 = 16.68 sec
+
+# Global variables
+revolutions = 10
+t = 16680
+
+def setup():
+  alvik.begin()
+  delay(1000)
+
+def loop():
+  alvik.set_wheels_speed(revolutions, revolutions)
+  delay(t)
+  alvik.set_wheels_speed(0, 0)
+  delay(5000) # Optional pause
+
+def cleanup():
+  alvik.stop()
+
+start(setup, loop, cleanup)
