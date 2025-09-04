@@ -13,7 +13,7 @@ def loop():
   delay(100)
 
   # If any zone is True, an item must be in range
-  if center < 40 and left < 40 and cleft < 20 and cright < 20 and right < 40 :
+  if center < 40 and left < 40 and cleft < 40 and cright < 40 and right < 40 :
     alvik.set_wheels_speed(20, -20)
   else:
       alvik.set_wheels_speed(20, 20)
