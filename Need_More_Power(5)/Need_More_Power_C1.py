@@ -1,4 +1,4 @@
-from arduino import *
+ vncbvadfrom arduino import *
 from arduino_alvik import ArduinoAlvik
 
 alvik = ArduinoAlvik()
