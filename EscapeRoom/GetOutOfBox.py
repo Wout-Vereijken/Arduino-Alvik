@@ -13,11 +13,11 @@ def loop():
     delay(100)
 
     # If an obstacle is detected within 40 cm on all sides
-    if center < 40 and left < 40 and cleft < 40 and cright < 40 and right < 40:
-        alvik.set_wheels_speed(50, -50)   # ✅ turn with stronger speed
+    if center < 60 and left < 30 and cleft < 45 and cright < 45 and right < 30:
+        alvik.set_wheels_speed(30, -30)   # ✅ turn with stronger speed
         print("Turn in place")
     else:
-        alvik.set_wheels_speed(50, 50)    # ✅ drive forward with stronger speed
+        alvik.set_wheels_speed(30, 30)    # ✅ drive forward with stronger speed
         print("Drive forward")
 
 def cleanup():

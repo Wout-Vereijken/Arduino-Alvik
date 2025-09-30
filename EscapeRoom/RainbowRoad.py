@@ -9,6 +9,10 @@ c1 = 0
 c2 = 0
 c3 = 0
 c4 = 0
+c5 = 0
+c6 = 0
+c7 = 0
+c8 = 0
 
 def save_color():
   r, g, b = alvik.get_color_raw()
@@ -46,20 +50,23 @@ def setup():
   alvik.begin()
   delay(1000)
 
-  global color_1
+  global color_1, color_2, color_3, color_4
+  global color_5, color_6, color_7, color_8
+
   color_1 = 0
-  
-  global color_2
   color_2 = 0
-
-  global color_3
   color_3 = 0
-
-  global color_4
   color_4 = 0
+  color_5 = 0
+  color_6 = 0
+  color_7 = 0
+  color_8 = 0
 
 def loop():
-  global c1, c2, c3, c4, LastColor, TurnedAround, color_1, color_2, color_3, color_4   # Ã¢ÂÂ allow modification of these globals
+  global c1, c2, c3, c4, c5, c6, c7, c8
+  global LastColor, TurnedAround
+  global color_1, color_2, color_3, color_4, color_5, color_6, color_7, color_8
+  
   left, cleft, center, cright, right = alvik.get_distance()
   get_color = alvik.get_color_raw()
 
@@ -67,6 +74,10 @@ def loop():
   is_color_2 = check_color(color_2, get_color, 0.20) if color_2 else False
   is_color_3 = check_color(color_3, get_color, 0.20) if color_3 else False
   is_color_4 = check_color(color_4, get_color, 0.20) if color_4 else False
+  is_color_5 = check_color(color_5, get_color, 0.20) if color_5 else False
+  is_color_6 = check_color(color_6, get_color, 0.20) if color_6 else False
+  is_color_7 = check_color(color_7, get_color, 0.20) if color_7 else False
+  is_color_8 = check_color(color_8, get_color, 0.20) if color_8 else False
   
   if center < 5 and TurnedAround == False:
     alvik.set_wheels_speed(-50, -50)
@@ -81,44 +92,52 @@ def loop():
       print("It is Color 1!")
       c1 += 1
       LastColor = 1
-      
-      Color1 = 1
-      Color2 = 1
-      Color3 = 1
-      Blink_Color(Color1, Color2, Color3)
+      Blink_Color(1,1,1)
       
     elif is_color_2 and LastColor != 2:
       print("It is Color 2!")
       c2 += 1
       LastColor = 2
-
-      Color1 = 21
-      Color2 = 21
-      Color3 = 21
-      Blink_Color(Color1, Color2, Color3)
+      Blink_Color(21,21,21)
     
     elif is_color_3 and LastColor != 3:
       print("It is Color 3!")
       c3 += 1
       LastColor = 3
-
-      Color1 = 42
-      Color2 = 42
-      Color3 = 42
-      Blink_Color(Color1, Color2, Color3)
+      Blink_Color(42,42,42)
       
     elif is_color_4 and LastColor != 4:
       print("It is Color 4!")
       c4 += 1
       LastColor = 4
+      Blink_Color(63,63,63)
 
-      Color1 = 63
-      Color2 = 63
-      Color3 = 63
-      Blink_Color(Color1, Color2, Color3)
+    elif is_color_5 and LastColor != 5:
+      print("It is Color 5!")
+      c5 += 1
+      LastColor = 5
+      Blink_Color(84,84,84)
+
+    elif is_color_6 and LastColor != 6:
+      print("It is Color 6!")
+      c6 += 1
+      LastColor = 6
+      Blink_Color(105,105,105)
+
+    elif is_color_7 and LastColor != 7:
+      print("It is Color 7!")
+      c7 += 1
+      LastColor = 7
+      Blink_Color(126,126,126)
+
+    elif is_color_8 and LastColor != 8:
+      print("It is Color 8!")
+      c8 += 1
+      LastColor = 8
+      Blink_Color(147,147,147)
     
-    if is_color_1 == False and is_color_2 == False and is_color_3 == False and is_color_4 == False:
-      LastColor = 0;
+    if not (is_color_1 or is_color_2 or is_color_3 or is_color_4 or is_color_5 or is_color_6 or is_color_7 or is_color_8):
+      LastColor = 0
       
       if color_1 == 0: 
         delay(250)
@@ -139,6 +158,26 @@ def loop():
         delay(250)
         color_4 = save_color()
         print("Color 4!")
+      
+      elif color_5 == 0:
+        delay(250)
+        color_5 = save_color()
+        print("Color 5!")
+      
+      elif color_6 == 0:
+        delay(250)
+        color_6 = save_color()
+        print("Color 6!")
+      
+      elif color_7 == 0:
+        delay(250)
+        color_7 = save_color()
+        print("Color 7!")
+      
+      elif color_8 == 0:
+        delay(250)
+        color_8 = save_color()
+        print("Color 8!")
          
     alvik.set_wheels_speed(50, 50)
     
@@ -155,10 +194,22 @@ def loop():
     elif is_color_4 and c4 == 1:
       delay(500)
       alvik.set_wheels_speed(0, 0)
+    elif is_color_5 and c5 == 1:
+      delay(500)
+      alvik.set_wheels_speed(0, 0)
+    elif is_color_6 and c6 == 1:
+      delay(500)
+      alvik.set_wheels_speed(0, 0)
+    elif is_color_7 and c7 == 1:
+      delay(500)
+      alvik.set_wheels_speed(0, 0)
+    elif is_color_8 and c8 == 1:
+      delay(500)
+      alvik.set_wheels_speed(0, 0)
     else:
       alvik.set_wheels_speed(50, 50)
     
-  print(c1, c2, c3, c4)
+  print(c1, c2, c3, c4, c5, c6, c7, c8)
 
 def cleanup():
   alvik.stop()
