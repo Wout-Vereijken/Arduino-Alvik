@@ -1,5 +1,4 @@
-  alvik.left_led.set_color(1, 1, 1)
-  alvik.right_led.set_color(1, 1, 1)
+
 
 from arduino import *
 from arduino_alvik import ArduinoAlvik
@@ -9,8 +8,12 @@ alvik = ArduinoAlvik()
 def setup():
   alvik.begin()
   delay(1000)
-  
+
+  global blinked
+  blinked = False
+
 def loop():
+  global blinked
   roll, pitch, yaw = alvik.get_orientation()
   print(pitch)
   delay(100)
@@ -27,13 +30,26 @@ def loop():
           alvik.set_wheels_speed(adapted_speed, adapted_speed)
       # Decline slope
       elif pitch > 1:
-          alvik.set_wheels_speed(-adapted_speed, -adapted_speed)
+          alvik.set_wheels_speed(adapted_speed, adapted_speed)
       # No slope
-      else:
-          alvik.set_wheels_speed(0, 0)
-      delay(500)
+      elif blinked == False:
+        alvik.set_wheels_speed(0, 0)
+        alvik.left_led.set_color(1, 1, 1)
+        alvik.right_led.set_color(1, 1, 1)
+        delay(500)
+        alvik.left_led.set_color(0, 0, 0)
+        alvik.right_led.set_color(0, 0, 0)
+        delay(250)
+        alvik.left_led.set_color(1, 1, 1)
+        alvik.right_led.set_color(1, 1, 1)
+        delay(500)
+        alvik.left_led.set_color(0, 0, 0)
+        alvik.right_led.set_color(0, 0, 0)
+        delay(250)
+        blinked = True
+        alvik.set_wheels_speed(20, 20)
   else:
-      alvik.set_wheels_speed(0, 0)
+      alvik.set_wheels_speed(20, 20)
   
 def cleanup():
   alvik.stop()
