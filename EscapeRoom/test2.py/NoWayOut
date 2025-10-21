@@ -8,9 +8,9 @@ exitDistance = 0
 def calibration():
     global Distance, exitDistance
 
-    alvik.set_wheels_speed(-15, 15)  
+    alvik.set_wheels_speed(-15, 15)
 
-    for _ in range(1000): 
+    for i in range(1000): 
         left, cleft, center, cright, right = alvik.get_distance()
         delay(10)
 
@@ -25,19 +25,19 @@ def calibration():
 
     alvik.set_wheels_speed(0, 0)
 
-    exitDistance = Distance  
-    delay(1000)  
+    exitDistance = Distance
+    delay(1000)
 
 
 def FindExit():
     global exitDistance
-    
+
     alvik.set_wheels_speed(-5, 5)
-    for _ in range(20000):  
+    for i in range(20000):
         left, cleft, center, cright, right = alvik.get_distance()
         delay(1)
 
-        if abs(exitDistance - center) < 3:  
+        if abs(exitDistance - center) < 3:
             alvik.set_wheels_speed(0, 0)
             delay(500)
 
@@ -46,7 +46,7 @@ def FindExit():
 
             alvik.set_wheels_speed(0, 0)
             break
-          
+
 def setup():
     alvik.begin()
     delay(1000)
