@@ -1,5 +1,3 @@
-
-
 from arduino import *
 from arduino_alvik import ArduinoAlvik
 

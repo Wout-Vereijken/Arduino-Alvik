@@ -5,6 +5,7 @@ alvik = ArduinoAlvik()
 
 TurnedAround = False
 LastColor = 0
+# color values
 c1 = 0
 c2 = 0
 c3 = 0
@@ -14,6 +15,7 @@ c6 = 0
 c7 = 0
 c8 = 0
 
+# save the color value
 def save_color():
   r, g, b = alvik.get_color_raw()
   color = (r, g, b)
@@ -22,6 +24,7 @@ def save_color():
   delay(500)
   return color
 
+  #check if color already exists
 def check_color(color_name, color_read, tolerance):
   r_cn, g_cn, b_cn = color_name
   r_cr, g_cr, b_cr = color_read
@@ -39,6 +42,7 @@ def check_color(color_name, color_read, tolerance):
   else:
     return False
 
+#blick color based on input
 def Blink_Color(Color1, Color2, Color3):
   alvik.right_led.set_color(0,0,0)
   alvik.left_led.set_color(0,0,0)
@@ -49,7 +53,7 @@ def Blink_Color(Color1, Color2, Color3):
 def setup():
   alvik.begin()
   delay(1000)
-
+  #global variables for the colors
   global color_1, color_2, color_3, color_4
   global color_5, color_6, color_7, color_8
 
@@ -78,7 +82,7 @@ def loop():
   is_color_6 = check_color(color_6, get_color, 0.20) if color_6 else False
   is_color_7 = check_color(color_7, get_color, 0.20) if color_7 else False
   is_color_8 = check_color(color_8, get_color, 0.20) if color_8 else False
-  
+  # turn around when facing wall
   if center < 5 and TurnedAround == False:
     alvik.set_wheels_speed(-50, -50)
     delay(1000)
@@ -87,6 +91,7 @@ def loop():
     alvik.set_wheels_speed(-50, -50)
     delay(500)
     TurnedAround = True
+  #first run to check colors
   elif TurnedAround == False:
     if is_color_1 and LastColor != 1:
       print("It is Color 1!")
@@ -135,10 +140,10 @@ def loop():
       c8 += 1
       LastColor = 8
       Blink_Color(147,147,147)
-    
+    #if color not found save as new color
     if not (is_color_1 or is_color_2 or is_color_3 or is_color_4 or is_color_5 or is_color_6 or is_color_7 or is_color_8):
       LastColor = 0
-      
+
       if color_1 == 0: 
         delay(250)
         color_1 = save_color()
@@ -180,37 +185,38 @@ def loop():
         print("Color 8!")
          
     alvik.set_wheels_speed(50, 50)
-    
+  #check if the color has been found once
   else:
     if is_color_1 and c1 == 1:
-      delay(500)
-      alvik.set_wheels_speed(0, 0)
+      blink()
     elif is_color_2 and c2 == 1:
-      delay(500)
-      alvik.set_wheels_speed(0, 0)
+      blink()
     elif is_color_3 and c3 == 1:
-      delay(500)
-      alvik.set_wheels_speed(0, 0)
+      blink()
     elif is_color_4 and c4 == 1:
-      delay(500)
-      alvik.set_wheels_speed(0, 0)
+      blink()
     elif is_color_5 and c5 == 1:
-      delay(500)
-      alvik.set_wheels_speed(0, 0)
+      blink()
     elif is_color_6 and c6 == 1:
-      delay(500)
-      alvik.set_wheels_speed(0, 0)
+      blink()
     elif is_color_7 and c7 == 1:
-      delay(500)
-      alvik.set_wheels_speed(0, 0)
+      blink()
     elif is_color_8 and c8 == 1:
-      delay(500)
-      alvik.set_wheels_speed(0, 0)
+      blink()
     else:
       alvik.set_wheels_speed(50, 50)
     
   print(c1, c2, c3, c4, c5, c6, c7, c8)
-
+# blick when called ad choose color
+def blink():
+    delay(750)
+    alvik.set_wheels_speed(0, 0)
+    while True:
+        Blink_Color(1,1,1)
+        delay(250)
+        Blink_Color(0,0,0)
+        delay(250)
+#stop the alvik
 def cleanup():
   alvik.stop()
 
